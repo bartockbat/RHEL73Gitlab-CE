@@ -3,7 +3,7 @@ FROM registry.access.redhat.com/rhel7.3:latest
 MAINTAINER Redhat Inc. connect@redhat.com
 
 
-# Many of the commented out lines below were included in the Girlab-CE Dockerfile. I left them in case they were needed
+# Many of the commented out lines below were included in the Gitlab-CE Dockerfile. I left them in case they were needed
 #RUN  yum -y install curl policycoreutils openssh-server openssh-clients
 
 RUN  yum -y install curl policycoreutils
@@ -17,7 +17,7 @@ RUN  yum -y install postfix
 #RUN  firewall-cmd --permanent --add-service=http
 #RUN  systemctl reload firewalld
 
-#Copy the help file - atomic helpa - satisfy the scanner requirements
+#Copy the help file - atomic helps - satisfy the scanner requirements
 COPY help.1 /
 RUN mkdir /licenses
 COPY license /licenses
@@ -29,7 +29,7 @@ RUN curl -LJO https://packages.gitlab.com/gitlab/gitlab-ce/packages/el/7/gitlab-
 
 RUN yum -y install gitlab-ce-8.13.1-ce.0.el7.x86_64.rpm 
 
-#Copy config file
+#Copy config file - I borrowed this from the Ubuntu based image
 RUN mv /etc/gitlab/gitlab.rb /etc/gitlab/gitlab.rb.orig
 
 #Finish copying config file
@@ -41,7 +41,7 @@ COPY wrapper /assets
 EXPOSE 443 80 22
 
 
-#Clean up container
+#Clean up container - it's still huge - needs to be flattened
 RUN rm -rf gitlab-ce-9.3.5-ce.0.el7.x86_64.rpm
 RUN yum clean all
 
